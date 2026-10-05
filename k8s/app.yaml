@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-configuration-management-portal
+  labels:
+    app: customer-configuration-management-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-configuration-management-portal
+  template:
+    metadata:
+      labels:
+        app: customer-configuration-management-portal
+    spec:
+      containers:
+        - name: api
+          image: customer-configuration-management-portal:local
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /v1/readyz
+              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-configuration-management-portal
+spec:
+  selector:
+    app: customer-configuration-management-portal
+  ports:
+    - port: 80
+      targetPort: 8080
