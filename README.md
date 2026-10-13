@@ -1,5 +1,12 @@
 # Customer Configuration Management Portal
 
+## Overview
+
+A four-eyes check for customer configuration changes. The `POST /check` endpoint passes any change outside production, but a production change passes only when the approver is a different person from the requester, so nobody can approve their own prod config. A versioned `/v1` ops API adds workspaces, tenant isolation, job approval and audit records.
+
+- **Built with:** Python, pytest, Docker, GitHub Actions
+- **Scope:** Local lab with tests; it does not call a hosted model and refuses production apply.
+
 <!-- project-guide:start -->
 ## Project guide
 
